@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mock Interview Feedback</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f4f4f9;
+    }
+    .container {
+      max-width: 600px;
+      margin: 50px auto;
+      padding: 20px;
+      background: #fff;
+      border-radius: 10px;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    }
+    h2 {
+      text-align: center;
+      color: #333;
+    }
+    form {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+    }
+    label {
+      font-weight: bold;
+    }
+    input, textarea, select, button {
+      padding: 10px;
+      font-size: 16px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+    textarea {
+      resize: none;
+    }
+    button {
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #45a049;
+    }
+    .success-message {
+      margin-top: 20px;
+      text-align: center;
+      color: green;
+      font-weight: bold;
+    }
+    #adminButton {
+  background-color: #007bff; /* Blue background */
+  color: white; /* White text */
+  padding: 10px 20px; /* Top and bottom padding 10px, left and right 20px */
+  text-decoration: none; /* Remove underline */
+  border-radius: 5px; /* Rounded corners */
+  font-size: 16px; /* Text size */
+  font-weight: bold; /* Make the text bold */
+  display: inline-block; /* Allow padding to take effect */
+  transition: background-color 0.3s, transform 0.3s; /* Add smooth hover effect */
+}
+
+#adminButton:hover {
+  background-color: #0056b3; /* Darker blue on hover */
+  transform: scale(1.05); /* Slightly enlarge the button on hover */
+}
+
+#adminButton:active {
+  background-color: #003f7f; /* Even darker blue when button is pressed */
+  transform: scale(1); /* Reset size on active */
+}
+
+#adminButton:focus {
+  outline: none; /* Remove outline on focus */
+  box-shadow: 0 0 5px rgba(0, 123, 255, 0.5); /* Add shadow when focused */
+}
+
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h2>Mock Interview Feedback Form</h2>
+    <a href="admin.html" id="adminButton">Go to Admin Dashboard</a>
+    <form id="feedbackForm">
+      <label for="name">Your Name</label>
+      <input type="text" id="name" placeholder="Enter your name" required>
+      
+      <label for="email">Email</label>
+      <input type="email" id="email" placeholder="Enter your email" required>
+
+      <!-- Self Introduction Rating -->
+      <label for="selfIntroduction">Self-Introduction Rating (out of 5)</label>
+      <input type="number" id="selfIntroduction" min="1" max="5" required>
+      <label for="selfIntroductionComments">Comments</label>
+      <textarea id="selfIntroductionComments" rows="2" placeholder="Enter your comments"></textarea>
+
+      <!-- Communication Skills Rating -->
+      <label for="communicationSkills">Communication Skills Rating (out of 5)</label>
+      <input type="number" id="communicationSkills" min="1" max="5" required>
+      <label for="communicationSkillsComments">Comments</label>
+      <textarea id="communicationSkillsComments" rows="2" placeholder="Enter your comments"></textarea>
+
+      <!-- Technical Knowledge Ratings -->
+      <label for="operatingSystems">Operating Systems (out of 5)</label>
+      <input type="number" id="operatingSystems" min="1" max="5" required>
+      <label for="softwareEngineering">Software Engineering (out of 5)</label>
+      <input type="number" id="softwareEngineering" min="1" max="5" required>
+      <label for="objectOriented">Object-Oriented Programming (out of 5)</label>
+      <input type="number" id="objectOriented" min="1" max="5" required>
+      <label for="dbms">DBMS (out of 5)</label>
+      <input type="number" id="dbms" min="1" max="5" required>
+      <label for="computerNetworks">Computer Networks (out of 5)</label>
+      <input type="number" id="computerNetworks" min="1" max="5" required>
+
+      <!-- Problem-Solving and Other Skills -->
+      <label for="problemSolving">Problem-Solving Skills (out of 5)</label>
+      <input type="number" id="problemSolving" min="1" max="5" required>
+      <label for="problemSolvingComments">Comments</label>
+      <textarea id="problemSolvingComments" rows="2" placeholder="Enter your comments"></textarea>
+
+      <label for="explanationSkills">Explanation Skills (out of 5)</label>
+      <input type="number" id="explanationSkills" min="1" max="5" required>
+      <label for="explanationSkillsComments">Comments</label>
+      <textarea id="explanationSkillsComments" rows="2" placeholder="Enter your comments"></textarea>
+
+      <label for="confidenceLevel">Confidence Level (out of 5)</label>
+      <input type="number" id="confidenceLevel" min="1" max="5" required>
+      <label for="confidenceLevelComments">Comments</label>
+      <textarea id="confidenceLevelComments" rows="2" placeholder="Enter your comments"></textarea>
+
+      <label for="timeManagement">Time Management & Stress Handling (out of 5)</label>
+      <input type="number" id="timeManagement" min="1" max="5" required>
+      <label for="timeManagementComments">Comments</label>
+      <textarea id="timeManagementComments" rows="2" placeholder="Enter your comments"></textarea>
+
+      <label for="presentationSkills">Presentation Skills (out of 5)</label>
+      <input type="number" id="presentationSkills" min="1" max="5" required>
+      <label for="presentationSkillsComments">Comments</label>
+      <textarea id="presentationSkillsComments" rows="2" placeholder="Enter your comments"></textarea>
+
+      <label for="technicalSkills">Technical Skills / Coding Ability (out of 5)</label>
+      <input type="number" id="technicalSkills" min="1" max="5" required>
+      <label for="technicalSkillsComments">Comments</label>
+      <textarea id="technicalSkillsComments" rows="2" placeholder="Enter your comments"></textarea>
+
+      <label for="criticalThinking">Critical Thinking & Analytical Skills (out of 5)</label>
+      <input type="number" id="criticalThinking" min="1" max="5" required>
+      <label for="criticalThinkingComments">Comments</label>
+      <textarea id="criticalThinkingComments" rows="2" placeholder="Enter your comments"></textarea>
+
+      <label for="behavioralTraits">Behavioral Traits (Attitude, Enthusiasm, Professionalism) (out of 5)</label>
+      <input type="number" id="behavioralTraits" min="1" max="5" required>
+      <label for="behavioralTraitsComments">Comments</label>
+      <textarea id="behavioralTraitsComments" rows="2" placeholder="Enter your comments"></textarea>
+
+      <label for="overallPerformance">Overall Interview Performance (out of 5)</label>
+      <input type="number" id="overallPerformance" min="1" max="5" required>
+      <label for="overallPerformanceComments">Comments</label>
+      <textarea id="overallPerformanceComments" rows="2" placeholder="Enter your comments"></textarea>
+
+      <button type="submit">Submit Feedback</button>
+    </form>
+    <div class="success-message" id="successMessage" style="display: none;">
+      Thank you for your feedback!
+    </div>
+  </div>
+
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/9.17.1/firebase-app.js";
+    import { getDatabase, ref, push } from "https://www.gstatic.com/firebasejs/9.17.1/firebase-database.js";
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyDH1a1EM0g4cvtTRObAc_m3wguhwPsNI78",
+      authDomain: "mocks-76624.firebaseapp.com",
+      databaseURL: "https://mocks-76624-default-rtdb.firebaseio.com",
+      projectId: "mocks-76624",
+      storageBucket: "mocks-76624.appspot.com",
+      messagingSenderId: "386868958240",
+      appId: "1:386868958240:web:491bbb47d0e296f08f9845",
+      measurementId: "G-RT25YYV2X9"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const database = getDatabase(app);
+
+    const form = document.getElementById("feedbackForm");
+    const successMessage = document.getElementById("successMessage");
+
+    form.addEventListener("submit", async (e) => {
+      e.preventDefault();
+
+      const name = document.getElementById("name").value;
+      const email = document.getElementById("email").value;
+      const selfIntroduction = document.getElementById("selfIntroduction").value;
+      const selfIntroductionComments = document.getElementById("selfIntroductionComments").value;
+      const communicationSkills = document.getElementById("communicationSkills").value;
+      const communicationSkillsComments = document.getElementById("communicationSkillsComments").value;
+      const operatingSystems = document.getElementById("operatingSystems").value;
+      const softwareEngineering = document.getElementById("softwareEngineering").value;
+      const objectOriented = document.getElementById("objectOriented").value;
+      const dbms = document.getElementById("dbms").value;
+      const computerNetworks = document.getElementById("computerNetworks").value;
+      const problemSolving = document.getElementById("problemSolving").value;
+      const problemSolvingComments = document.getElementById("problemSolvingComments").value;
+      const explanationSkills = document.getElementById("explanationSkills").value;
+      const explanationSkillsComments = document.getElementById("explanationSkillsComments").value;
+      const confidenceLevel = document.getElementById("confidenceLevel").value;
+      const confidenceLevelComments = document.getElementById("confidenceLevelComments").value;
+      const timeManagement = document.getElementById("timeManagement").value;
+      const timeManagementComments = document.getElementById("timeManagementComments").value;
+      const presentationSkills = document.getElementById("presentationSkills").value;
+      const presentationSkillsComments = document.getElementById("presentationSkillsComments").value;
+      const technicalSkills = document.getElementById("technicalSkills").value;
+      const technicalSkillsComments = document.getElementById("technicalSkillsComments").value;
+      const criticalThinking = document.getElementById("criticalThinking").value;
+      const criticalThinkingComments = document.getElementById("criticalThinkingComments").value;
+      const behavioralTraits = document.getElementById("behavioralTraits").value;
+      const behavioralTraitsComments = document.getElementById("behavioralTraitsComments").value;
+      const overallPerformance = document.getElementById("overallPerformance").value;
+      const overallPerformanceComments = document.getElementById("overallPerformanceComments").value;
+
+      try {
+        await push(ref(database, "feedbacks/"), {
+          name,
+          email,
+          selfIntroduction,
+          selfIntroductionComments,
+          communicationSkills,
+          communicationSkillsComments,
+          operatingSystems,
+          softwareEngineering,
+          objectOriented,
+          dbms,
+          computerNetworks,
+          problemSolving,
+          problemSolvingComments,
+          explanationSkills,
+          explanationSkillsComments,
+          confidenceLevel,
+          confidenceLevelComments,
+          timeManagement,
+          timeManagementComments,
+          presentationSkills,
+          presentationSkillsComments,
+          technicalSkills,
+          technicalSkillsComments,
+          criticalThinking,
+          criticalThinkingComments,
+          behavioralTraits,
+          behavioralTraitsComments,
+          overallPerformance,
+          overallPerformanceComments,
+          timestamp: new Date().toISOString()
+        });
+
+        successMessage.style.display = "block";
+        form.reset();
+      } catch (error) {
+        console.error("Error details:", error.message);
+        alert("An error occurred: " + error.message);
+      }
+    });
+  </script>
+</body>
+</html>

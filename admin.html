@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mock Interview Feedback - Admin</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f4f4f9;
+    }
+    .container {
+      max-width: 1000px;
+      margin: 50px auto;
+      padding: 20px;
+      background: #fff;
+      border-radius: 10px;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    }
+    h2 {
+      text-align: center;
+      color: #333;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 20px;
+    }
+    table th, table td {
+      padding: 12px;
+      border: 1px solid #ccc;
+      text-align: left;
+    }
+    table th {
+      background-color: #4CAF50;
+      color: white;
+    }
+    .feedback-entry {
+      margin-bottom: 15px;
+    }
+    .feedback-entry label {
+      font-weight: bold;
+    }
+    .feedback-entry textarea {
+      width: 100%;
+      padding: 10px;
+      font-size: 16px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      resize: vertical;
+    }
+    button {
+      background-color: #f44336;
+      color: white;
+      border: none;
+      padding: 8px 15px;
+      cursor: pointer;
+      border-radius: 5px;
+    }
+    button:hover {
+      background-color: #e53935;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h2>Admin Panel - Mock Interview Feedback</h2>
+    <table id="feedbackTable">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Email</th>
+          <th>Self-Introduction Rating</th>
+          <th>Communication Skills Rating</th>
+          <th>Overall Performance Rating</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <!-- Feedback rows will appear here -->
+      </tbody>
+    </table>
+    <div id="feedbackDetails" style="display: none; margin-top: 20px;">
+      <h3>Feedback Details</h3>
+      <div id="feedbackContent"></div>
+      <button id="deleteFeedbackBtn">Delete Feedback</button>
+    </div>
+  </div>
+
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/9.17.1/firebase-app.js";
+    import { getDatabase, ref, get, child, remove } from "https://www.gstatic.com/firebasejs/9.17.1/firebase-database.js";
+  
+    const firebaseConfig = {
+      apiKey: "AIzaSyDH1a1EM0g4cvtTRObAc_m3wguhwPsNI78",
+      authDomain: "mocks-76624.firebaseapp.com",
+      databaseURL: "https://mocks-76624-default-rtdb.firebaseio.com",
+      projectId: "mocks-76624",
+      storageBucket: "mocks-76624.appspot.com",
+      messagingSenderId: "386868958240",
+      appId: "1:386868958240:web:491bbb47d0e296f08f9845",
+      measurementId: "G-RT25YYV2X9"
+    };
+  
+    const app = initializeApp(firebaseConfig);
+    const database = getDatabase(app);
+    const feedbackRef = ref(database, "feedbacks/");
+  
+    const feedbackTable = document.getElementById("feedbackTable").getElementsByTagName('tbody')[0];
+    const feedbackDetails = document.getElementById("feedbackDetails");
+    const feedbackContent = document.getElementById("feedbackContent");
+    const deleteFeedbackBtn = document.getElementById("deleteFeedbackBtn");
+  
+    let selectedFeedbackId = null;
+  
+    // Function to load and display feedback
+    async function loadFeedback() {
+      try {
+        const snapshot = await get(feedbackRef);
+        if (snapshot.exists()) {
+          const feedbacks = snapshot.val();
+          feedbackTable.innerHTML = ''; // Clear existing rows
+          Object.keys(feedbacks).forEach(key => {
+            const feedback = feedbacks[key];
+            const row = feedbackTable.insertRow();
+            row.insertCell(0).innerText = feedback.name;
+            row.insertCell(1).innerText = feedback.email;
+            row.insertCell(2).innerText = feedback.selfIntroduction;
+            row.insertCell(3).innerText = feedback.communicationSkills;
+            row.insertCell(4).innerText = feedback.overallPerformance;
+            const actionsCell = row.insertCell(5);
+            const viewButton = document.createElement("button");
+            viewButton.innerText = "View Details";
+            viewButton.onclick = () => showFeedbackDetails(key, feedback);
+            actionsCell.appendChild(viewButton);
+          });
+        }
+      } catch (error) {
+        console.error("Error loading feedback: ", error.message);
+      }
+    }
+  
+    // Function to show feedback details
+    function showFeedbackDetails(feedbackId, feedback) {
+      selectedFeedbackId = feedbackId;
+      feedbackContent.innerHTML = `
+        <div class="feedback-entry"><label>Name:</label> ${feedback.name}</div>
+        <div class="feedback-entry"><label>Email:</label> ${feedback.email}</div>
+        <div class="feedback-entry"><label>Self-Introduction Rating:</label> ${feedback.selfIntroduction}</div>
+        <div class="feedback-entry"><label>Self-Introduction Comments:</label> ${feedback.selfIntroductionComments}</div>
+        <div class="feedback-entry"><label>Communication Skills Rating:</label> ${feedback.communicationSkills}</div>
+        <div class="feedback-entry"><label>Communication Skills Comments:</label> ${feedback.communicationSkillsComments}</div>
+        <div class="feedback-entry"><label>Operating Systems Rating:</label> ${feedback.operatingSystems}</div>
+        <div class="feedback-entry"><label>Software Engineering Rating:</label> ${feedback.softwareEngineering}</div>
+        <div class="feedback-entry"><label>Object-Oriented Programming Rating:</label> ${feedback.objectOriented}</div>
+        <div class="feedback-entry"><label>DBMS Rating:</label> ${feedback.dbms}</div>
+        <div class="feedback-entry"><label>Computer Networks Rating:</label> ${feedback.computerNetworks}</div>
+        <div class="feedback-entry"><label>Problem-Solving Skills Rating:</label> ${feedback.problemSolving}</div>
+        <div class="feedback-entry"><label>Problem-Solving Comments:</label> ${feedback.problemSolvingComments}</div>
+        <div class="feedback-entry"><label>Explanation Skills Rating:</label> ${feedback.explanationSkills}</div>
+        <div class="feedback-entry"><label>Explanation Skills Comments:</label> ${feedback.explanationSkillsComments}</div>
+        <div class="feedback-entry"><label>Confidence Level Rating:</label> ${feedback.confidenceLevel}</div>
+        <div class="feedback-entry"><label>Confidence Level Comments:</label> ${feedback.confidenceLevelComments}</div>
+        <div class="feedback-entry"><label>Time Management & Stress Handling Rating:</label> ${feedback.timeManagement}</div>
+        <div class="feedback-entry"><label>Time Management Comments:</label> ${feedback.timeManagementComments}</div>
+        <div class="feedback-entry"><label>Presentation Skills Rating:</label> ${feedback.presentationSkills}</div>
+        <div class="feedback-entry"><label>Presentation Skills Comments:</label> ${feedback.presentationSkillsComments}</div>
+        <div class="feedback-entry"><label>Technical Skills Rating:</label> ${feedback.technicalSkills}</div>
+        <div class="feedback-entry"><label>Technical Skills Comments:</label> ${feedback.technicalSkillsComments}</div>
+        <div class="feedback-entry"><label>Critical Thinking & Analytical Skills Rating:</label> ${feedback.criticalThinking}</div>
+        <div class="feedback-entry"><label>Critical Thinking Comments:</label> ${feedback.criticalThinkingComments}</div>
+        <div class="feedback-entry"><label>Behavioral Traits Rating:</label> ${feedback.behavioralTraits}</div>
+        <div class="feedback-entry"><label>Behavioral Traits Comments:</label> ${feedback.behavioralTraitsComments}</div>
+        <div class="feedback-entry"><label>Overall Performance Rating:</label> ${feedback.overallPerformance}</div>
+        <div class="feedback-entry"><label>Overall Performance Comments:</label> ${feedback.overallPerformanceComments}</div>
+      `;
+      feedbackDetails.style.display = "block";
+    }
+  
+    // Function to delete feedback
+    async function deleteFeedback() {
+      if (selectedFeedbackId) {
+        try {
+          await remove(ref(database, "feedbacks/" + selectedFeedbackId));
+          alert("Feedback deleted successfully");
+          feedbackDetails.style.display = "none";
+          loadFeedback(); // Refresh the feedback list
+        } catch (error) {
+          alert("Error deleting feedback: " + error.message);
+        }
+      }
+    }
+  
+    // Attach delete functionality
+    deleteFeedbackBtn.addEventListener("click", deleteFeedback);
+  
+    // Load the feedback data on page load
+    loadFeedback();
+  </script>
+  
